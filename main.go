@@ -5,29 +5,20 @@ import (
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.Error(w, "404 not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != "GET" {
-		http.Error(w, "Not supported", http.StatusBadRequest)
-	}
+type Car interface {
 }
-func handler2(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/about" {
-		http.Error(w, "404 not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != "GET" {
-		http.Error(w, "Not supported", http.StatusBadRequest)
-	}
-}
+
 func main() {
+	var arr [2]Car
+	_ = arr
 	http.Handle("/", http.FileServer(http.Dir("./static")))
-	http.HandleFunc("/home", handler)
-	http.HandleFunc("/about", handler2)
-	if err := http.ListenAndServe(":8081", nil); err != nil {
+	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		return
+	})
+	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		return
+	})
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }
