@@ -31,7 +31,7 @@ const up = 'w'
 const down = 's'
 const left = 'a'
 const right = 'd'
-const size = 16
+const size = 12
 
 func Controller(c rune, pos []int, p bool) {
 	var min int = 1
@@ -69,8 +69,8 @@ func __Game__() {
 	var score int
 	var moves int = (size * 2) + 6
 	var coinMovement = [4]rune{'w', 'a', 's', 'd'}
+	var bonus = 18
 
-	var bonus = 9
 	for {
 		if coin[0] == pos[0] && coin[1] == pos[1] {
 			rand.Seed(time.Now().UnixNano())
@@ -95,7 +95,7 @@ func __Game__() {
 		floor[coin[0]][coin[1]] = cat
 		var i int
 		for i = 0; i < size; i++ {
-			fmt.Println(floor[i])
+			fmt.Println("||  ", floor[i], "  ||")
 		}
 		if moves == 0 {
 			fmt.Println("Game over!")
@@ -123,4 +123,6 @@ func __Game__() {
 
 		Clear()
 	}
+	reader := bufio.NewReader(os.Stdin)
+	reader.ReadRune()
 }
