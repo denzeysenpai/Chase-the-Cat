@@ -70,7 +70,6 @@ func __Game__() {
 	var moves int = (size * 2) + 6
 	var coinMovement = [4]rune{'w', 'a', 's', 'd'}
 	var bonus = 18
-
 	for {
 		if coin[0] == pos[0] && coin[1] == pos[1] {
 			rand.Seed(time.Now().UnixNano())
@@ -78,9 +77,7 @@ func __Game__() {
 			randomInt2 := rand.Intn(10)
 			coin = []int{randomInt1, randomInt2}
 		}
-		if score == 10 || score == 20 || score == 30 {
-			bonus--
-		}
+
 		fmt.Println(" ")
 		fmt.Println("Score: ", score)
 		fmt.Println("Moves: ", moves)
@@ -117,6 +114,9 @@ func __Game__() {
 		if coin[0] == pos[0] && coin[1] == pos[1] {
 			score++
 			moves = moves + bonus
+			if score == 10 || score == 20 || score == 30 {
+				bonus--
+			}
 		} else {
 			Controller(move, coin, false)
 		}
